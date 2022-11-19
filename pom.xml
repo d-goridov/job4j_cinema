@@ -136,6 +136,14 @@
     </plugin>
 
     <plugin>
+        <groupId>org.liquibase</groupId>
+        <artifactId>liquibase-maven-plugin</artifactId>
+        <version>4.15.0</version>
+        <configuration>
+          <propertyFile>db/liquibase.properties</propertyFile>
+        </configuration>
+    </plugin>
+    <plugin>
       <groupId>org.apache.maven.plugins</groupId>
       <artifactId>maven-surefire-plugin</artifactId>
       <version>3.0.0-M7</version>
