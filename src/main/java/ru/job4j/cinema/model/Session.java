@@ -1,4 +1,4 @@
-package ru.job4j.model;
+package ru.job4j.cinema.model;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -9,10 +9,14 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
-public class User {
+public class Session {
     @EqualsAndHashCode.Include
     private int id;
     private String name;
-    private String email;
-    private String phone;
+    private byte[] photo;
+
+    public Session(int id, String name) {
+        this.id = id;
+        this.name = name;
+    }
 }

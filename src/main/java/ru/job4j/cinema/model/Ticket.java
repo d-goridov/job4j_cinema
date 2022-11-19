@@ -1,4 +1,4 @@
-package ru.job4j.model;
+package ru.job4j.cinema.model;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -13,7 +13,7 @@ public class Ticket {
     @EqualsAndHashCode.Include
     private int id;
     private Session session;
-    private int pos_row;
+    private int row;
     private int cell;
     private User user;
 }
