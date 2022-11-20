@@ -13,4 +13,3 @@ comment on column tickets.session_id is 'Идентификатор сеанса
 comment on column tickets.pos_row is 'Номер ряда';
 comment on column tickets.cell is 'Номер места';
 comment on column tickets.user_id is 'Идентификатор пользователя';
-comment on constraint place_unique on tickets is 'Купленный билет';
