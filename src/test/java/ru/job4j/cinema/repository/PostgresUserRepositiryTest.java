@@ -1,6 +1,5 @@
 package ru.job4j.cinema.repository;
 
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import ru.job4j.cinema.Main;
 import ru.job4j.cinema.model.User;
@@ -9,7 +8,6 @@ import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.*;
 
-@Disabled
 class PostgresUserRepositiryTest {
 
     @Test
