@@ -12,7 +12,7 @@ import java.sql.ResultSet;
 import java.util.Optional;
 
 @Repository
-public class PostgresTicketRepository implements TicketRepository{
+public class PostgresTicketRepository implements TicketRepository {
 
     private static final String INSERT = "INSERT INTO tickets (session_id, pos_row, cell, user_id)"
             + " VALUES (?, ?, ?, ?)";

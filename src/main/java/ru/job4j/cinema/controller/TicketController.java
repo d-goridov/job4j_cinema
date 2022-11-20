@@ -44,7 +44,7 @@ public class TicketController {
         ticket.setCell((Integer) session.getAttribute("cell"));
         ticket.setUser((User) session.getAttribute("user"));
         Optional<Ticket> rsl = ticketService.add(ticket);
-        if(rsl.isEmpty()) {
+        if (rsl.isEmpty()) {
             return "redirect:/errorPay";
         }
         return "redirect:/successPay";

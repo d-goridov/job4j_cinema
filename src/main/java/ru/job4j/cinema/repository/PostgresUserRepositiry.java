@@ -13,7 +13,7 @@ import java.sql.SQLException;
 import java.util.Optional;
 
 @Repository
-public class PostgresUserRepositiry implements UserRepository{
+public class PostgresUserRepositiry implements UserRepository {
     private static final String INSERT = "INSERT INTO users(username, email, phone)"
             + " VALUES (?, ?, ?)";
 
