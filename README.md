@@ -2,7 +2,7 @@
 
 На главной странице сайта показан список фильмов на которые можно купить билет
 
-<img src="readme_images/main_page.jpg" alt="Главная страница" width="1107" height="863"/>
+<img src="readme_images/main_page.jpg" alt="Главная страница" width="925" height="721"/>
 
 Делать покупку на сайте могут только зарегистрированные пользователи
 
@@ -26,7 +26,7 @@
 Если вы выбираете "Купить" то переходите на страницу об успешной покупке, если "Отменить"
 то возвращаетесь на главную страницу
 
-<img src="readme_images/success_page.jpg" alt="Главная страница" width="1020" height="724"/>
+<img src="readme_images/success_page.jpg" alt="Главная страница" width="924" height="656"/>
 
 # Технологии
 Java 17, Spring boot, Maven 3.8, Postgres 14, Thymeleaf, Bootstrap, JDBC, Liquibase 4.15, 
