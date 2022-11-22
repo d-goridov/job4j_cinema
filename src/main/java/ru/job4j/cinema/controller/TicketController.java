@@ -56,7 +56,7 @@ public class TicketController {
         model.addAttribute("user", user);
         model.addAttribute("sessionId", session.getAttribute("sessionId"));
         model.addAttribute("message", "Это место на выбранный фильм уже продано");
-        return "pay_info/error_pay";
+        return "pay/error_pay";
     }
 
     @GetMapping("/successPay")
@@ -66,6 +66,6 @@ public class TicketController {
         model.addAttribute("row", session.getAttribute("row"));
         model.addAttribute("cell", session.getAttribute("cell"));
         model.addAttribute("sessionId", session.getAttribute("sessionId"));
-        return "pay_info/success_pay";
+        return "pay/success_pay";
     }
 }
