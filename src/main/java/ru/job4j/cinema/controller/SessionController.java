@@ -12,7 +12,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import ru.job4j.cinema.model.User;
 import ru.job4j.cinema.service.SessionService;
-import ru.job4j.cinema.utils.UserSession;
+import ru.job4j.cinema.util.UserSession;
 
 import javax.servlet.http.HttpSession;
 import java.io.IOException;

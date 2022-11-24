@@ -9,7 +9,7 @@ import ru.job4j.cinema.model.Session;
 import ru.job4j.cinema.model.Ticket;
 import ru.job4j.cinema.model.User;
 import ru.job4j.cinema.service.TicketService;
-import ru.job4j.cinema.utils.UserSession;
+import ru.job4j.cinema.util.UserSession;
 
 import javax.servlet.http.HttpSession;
 import java.util.Optional;
