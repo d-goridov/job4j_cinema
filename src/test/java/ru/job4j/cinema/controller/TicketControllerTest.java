@@ -14,7 +14,7 @@ class TicketControllerTest {
 
     @Test
     public void whenGetInfo() {
-        User user = new User(1, "Dmitriy", "mail", "111-111");
+        User user = new User(1, "Dmitriy", "password", "mail", "111-111");
         Model model = mock(Model.class);
         HttpSession session = mock(HttpSession.class);
         TicketService service = mock(TicketService.class);
@@ -33,7 +33,7 @@ class TicketControllerTest {
 
     @Test
     public void whenCreateTicketError() {
-        User user = new User(1, "Dmitriy", "mail", "111-111");
+        User user = new User(1, "Dmitriy", "password", "mail", "111-111");
         Model model = mock(Model.class);
         TicketService service = mock(TicketService.class);
         HttpSession session = mock(HttpSession.class);
@@ -49,7 +49,7 @@ class TicketControllerTest {
 
     @Test
     public void whenCreateTicketSuccess() {
-        User user = new User(1, "Dmitriy", "mail", "111-111");
+        User user = new User(1, "Dmitriy", "password", "mail", "111-111");
         Model model = mock(Model.class);
         TicketService service = mock(TicketService.class);
         HttpSession session = mock(HttpSession.class);

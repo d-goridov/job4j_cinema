@@ -17,7 +17,7 @@ class SessionControllerTest {
 
     @Test
     void whenShowMain() {
-        User user = new User(1, "Dmitriy", "mail", "111-111");
+        User user = new User(1, "Dmitriy", "password", "mail", "111-111");
         List<Session> sessions = List.of(
                 new Session(1, "session_1", null),
                 new Session(1, "session_2", null)
@@ -36,7 +36,7 @@ class SessionControllerTest {
 
     @Test
     void whenSelectSession() {
-        User user = new User(1, "Dmitriy", "mail", "111-111");
+        User user = new User(1, "Dmitriy", "password", "mail", "111-111");
         Model model = mock(Model.class);
         SessionService service = mock(SessionService.class);
         HttpSession session = mock(HttpSession.class);
@@ -62,7 +62,7 @@ class SessionControllerTest {
 
     @Test
     void whenSelectCell() {
-        User user = new User(1, "Dmitriy", "mail", "111-111");
+        User user = new User(1, "Dmitriy", "password", "mail", "111-111");
         Model model = mock(Model.class);
         SessionService service = mock(SessionService.class);
         HttpSession session = mock(HttpSession.class);

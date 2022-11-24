@@ -50,7 +50,7 @@ class PostgresUserRepositiryTest {
     @Test
     public void whenAddUser() {
         UserRepository repository = new PostgresUserRepositiry(this.createPool());
-        User user = new User(1, "Tom", "tom123@gmail.com", "222-33-44");
+        User user = new User(1, "Tom", "password", "tom123@gmail.com", "222-33-44");
         Optional<User> userDB = repository.add(user);
         assertThat(userDB.isPresent()).isTrue();
         User inDb = userDB.get();
@@ -58,15 +58,15 @@ class PostgresUserRepositiryTest {
     }
 
     @Test
-    public void whenFindByEmailAndPhone() {
+    public void whenFindByEmailAndPassword() {
         UserRepository repository = new PostgresUserRepositiry(this.createPool());
-        User user = new User(2, "Oleg", "oleg123@gmail.com", "222-55-44");
+        User user = new User(2, "Oleg", "password", "oleg123@gmail.com", "222-55-44");
         Optional<User> userDB = repository.add(user);
         assertThat(userDB.isPresent()).isTrue();
-        Optional<User> inDB = repository.findUserByEmailAndPhone(user.getEmail(), user.getPhone());
+        Optional<User> inDB = repository.findUserByEmailAndPassword(user.getEmail(), user.getPassword());
         assertThat(inDB.isPresent()).isTrue();
         User userInDB = inDB.get();
-        assertThat(user.getPhone()).isEqualTo(userInDB.getPhone());
+        assertThat(user.getPassword()).isEqualTo(userInDB.getPassword());
         assertThat(user.getEmail()).isEqualTo(userInDB.getEmail());
     }
 }

@@ -14,10 +14,10 @@ import java.util.Optional;
 
 @Repository
 public class PostgresUserRepositiry implements UserRepository {
-    private static final String INSERT = "INSERT INTO users(username, email, phone)"
-            + " VALUES (?, ?, ?)";
+    private static final String INSERT = "INSERT INTO users(username, password, email, phone)"
+            + " VALUES (?, ?, ?, ?)";
 
-    private static final String GET_BY_EMAIL_PHONE = "SELECT * FROM users WHERE email = ? AND phone = ?";
+    private static final String GET_BY_EMAIL_PASSWORD = "SELECT * FROM users WHERE email = ? AND password = ?";
 
     private static final Logger LOG = LoggerFactory.getLogger(PostgresUserRepositiry.class.getName());
 
@@ -30,6 +30,7 @@ public class PostgresUserRepositiry implements UserRepository {
     private User userOf(ResultSet resultset) throws SQLException {
         return new User(resultset.getInt("id"),
                 resultset.getString("username"),
+                resultset.getString("password"),
                 resultset.getString("email"),
                 resultset.getString("phone"));
     }
@@ -39,8 +40,9 @@ public class PostgresUserRepositiry implements UserRepository {
         try (Connection cn = pool.getConnection();
              PreparedStatement ps = cn.prepareStatement(INSERT, PreparedStatement.RETURN_GENERATED_KEYS)) {
             ps.setString(1, user.getName());
-            ps.setString(2, user.getEmail());
-            ps.setString(3, user.getPhone());
+            ps.setString(2, user.getPassword());
+            ps.setString(3, user.getEmail());
+            ps.setString(4, user.getPhone());
             ps.execute();
             try (ResultSet id = ps.getGeneratedKeys()) {
                 if (id.next()) {
@@ -54,13 +56,13 @@ public class PostgresUserRepositiry implements UserRepository {
         return rsl;
     }
 
-    public Optional<User> findUserByEmailAndPhone(String email, String phone) {
+    public Optional<User> findUserByEmailAndPassword(String email, String password) {
         Optional<User> rsl = Optional.empty();
         try (Connection cn = pool.getConnection();
-             PreparedStatement ps =  cn.prepareStatement(GET_BY_EMAIL_PHONE)
+             PreparedStatement ps =  cn.prepareStatement(GET_BY_EMAIL_PASSWORD)
         ) {
             ps.setString(1, email);
-            ps.setString(2, phone);
+            ps.setString(2, password);
             try (ResultSet it = ps.executeQuery()) {
                 if (it.next()) {
                     rsl = Optional.of(userOf(it));

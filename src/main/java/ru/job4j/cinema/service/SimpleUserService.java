@@ -21,7 +21,7 @@ public class SimpleUserService implements UserService {
         return repositiry.add(user);
     }
 
-    public Optional<User> findUserByEmailAndPhone(String email, String phone) {
-        return repositiry.findUserByEmailAndPhone(email, phone);
+    public Optional<User> findUserByEmailAndPassword(String email, String password) {
+        return repositiry.findUserByEmailAndPassword(email, password);
     }
 }

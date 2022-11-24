@@ -26,7 +26,7 @@
             </div>
             <div class="card-body">
                 <div th:if="${fail}" class="alert alert-danger" role="alert">
-                    Логин или номер телефона введены не верно!
+                    Логин или пароль введены не верно!
                 </div>
                 <form th:action="@{/login}" method="POST">
                     <div class="form-group">
@@ -34,8 +34,8 @@
                         <input type="email" class="form-control" name="email">
                     </div>
                     <div class="form-group">
-                        <label>Номер телефона</label>
-                        <input type="text" class="form-control" name="phone">
+                        <label>Пароль</label>
+                        <input type="password" class="form-control" name="password">
                     </div>
                     <button type="submit" class="btn btn-primary">Войти</button>
                 </form>

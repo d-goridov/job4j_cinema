@@ -16,7 +16,7 @@ class UserControllerTest {
 
     @Test
     public void whenRegistrationSuccess() {
-        User user = new User(1, "Dmitriy", "mail", "111-111");
+        User user = new User(1, "Dmitriy", "password", "mail", "111-111");
         UserService service = mock(UserService.class);
         when(service.add(user)).thenReturn(Optional.of(user));
         UserController controller = new UserController(service);
@@ -26,7 +26,7 @@ class UserControllerTest {
 
     @Test
     public void whenRegistrationError() {
-        User user = new User(1, "Dmitriy", "mail", "111-111");
+        User user = new User(1, "Dmitriy", "password", "mail", "111-111");
         UserService service = mock(UserService.class);
         when(service.add(user)).thenReturn(Optional.empty());
         UserController controller = new UserController(service);
@@ -36,7 +36,7 @@ class UserControllerTest {
 
     @Test
     public void whenFormAddUser() {
-        User user = new User(1, "", "", "");
+        User user = new User(1, "", "", "", "");
         UserService service = mock(UserService.class);
         HttpSession session = mock(HttpSession.class);
         Model model = mock(Model.class);

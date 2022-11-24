@@ -57,8 +57,8 @@ public class UserController {
 
     @PostMapping("/login")
     public String login(@ModelAttribute User user, HttpServletRequest request) {
-        Optional<User> userDb = userService.findUserByEmailAndPhone(
-                user.getEmail(), user.getPhone()
+        Optional<User> userDb = userService.findUserByEmailAndPassword(
+                user.getEmail(), user.getPassword()
         );
         if (userDb.isEmpty()) {
             return "redirect:/loginPage?fail=true";

@@ -6,5 +6,5 @@ import java.util.Optional;
 
 public interface UserRepository {
      Optional<User> add(User user);
-     Optional<User> findUserByEmailAndPhone(String email, String phone);
+     Optional<User> findUserByEmailAndPassword(String email, String phone);
 }
