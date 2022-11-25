@@ -1,6 +1,7 @@
 package ru.job4j.cinema.repository;
 
 import org.apache.commons.dbcp2.BasicDataSource;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import ru.job4j.cinema.Main;
 import ru.job4j.cinema.model.User;
@@ -68,5 +69,15 @@ class PostgresUserRepositiryTest {
         User userInDB = inDB.get();
         assertThat(user.getPassword()).isEqualTo(userInDB.getPassword());
         assertThat(user.getEmail()).isEqualTo(userInDB.getEmail());
+    }
+
+    @Test
+    public void whenNotAddSameUser() {
+        User user = new User(3, "Elena", "password", "elena@gmail.com", "22-33-44");
+        User user2 = new User(4, "Elena", "password1", "elena@gmail.com", "333-555");
+        UserRepository repository = new PostgresUserRepositiry(this.createPool());
+        repository.add(user);
+        Optional<User> userInDB = repository.add(user2);
+        Assertions.assertTrue(userInDB.isEmpty());
     }
 }

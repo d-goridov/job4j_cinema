@@ -12,7 +12,6 @@ import javax.servlet.http.HttpSession;
 import java.util.Optional;
 
 @Controller
-@ThreadSafe
 public class UserController {
 
     private final UserService userService;

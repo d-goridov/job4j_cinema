@@ -1,6 +1,5 @@
 package ru.job4j.cinema.controller;
 
-import net.jcip.annotations.ThreadSafe;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -15,7 +14,6 @@ import javax.servlet.http.HttpSession;
 import java.util.Optional;
 
 @Controller
-@ThreadSafe
 public class TicketController {
 
    final private TicketService ticketService;

@@ -1,6 +1,5 @@
 package ru.job4j.cinema.controller;
 
-import net.jcip.annotations.ThreadSafe;
 import org.springframework.core.io.ByteArrayResource;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.core.io.Resource;
@@ -19,8 +18,6 @@ import java.io.IOException;
 import java.io.InputStream;
 
 @Controller
-@ThreadSafe
-
 public class SessionController {
     private final SessionService service;
 
