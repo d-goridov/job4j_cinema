@@ -19,16 +19,30 @@ import java.util.Optional;
 @Service
 @ThreadSafe
 public class SimpleUserService implements UserService {
+    /**
+     * Объект хранилища пользователей
+     */
     private final UserRepository repositiry;
 
     public SimpleUserService(UserRepository repositiry) {
         this.repositiry = repositiry;
     }
 
+    /**
+     * Метод сохранения пользователя в хранилище.
+     * @param user - сохраняемый пользователь
+     * @return Optional.of(user) при успешном сохранении, иначе Optional.empty()
+     */
     public Optional<User> add(User user) {
         return repositiry.add(user);
     }
 
+    /**
+     * Метод поиска в хранилище пользователя по электронной почте и паролю
+     * @param email - электронная почта пользователя
+     * @param password - пароль пользователя
+     * @return Optional.of(user) при успешном поиске, иначе Optional.empty()
+     */
     public Optional<User> findUserByEmailAndPassword(String email, String password) {
         return repositiry.findUserByEmailAndPassword(email, password);
     }

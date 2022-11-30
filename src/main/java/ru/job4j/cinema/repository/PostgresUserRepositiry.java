@@ -1,32 +1,57 @@
 package ru.job4j.cinema.repository;
 
-import org.apache.commons.dbcp2.BasicDataSource;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Repository;
 import ru.job4j.cinema.model.User;
 
+import javax.sql.DataSource;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Optional;
 
+/**
+ * Реализация хранилища пользователей на основе DB Postgres
+ */
 @Repository
 public class PostgresUserRepositiry implements UserRepository {
+    /**
+     * Строка - SQL запрос к БД, для добавления пользователя в таблицу
+     */
     private static final String INSERT = "INSERT INTO users(username, password, email, phone)"
             + " VALUES (?, ?, ?, ?)";
 
+    /**
+     * Строка - SQL запрос к БД, для поиска пользователя по электронной почте и паролю
+     */
     private static final String GET_BY_EMAIL_PASSWORD = "SELECT * FROM users WHERE email = ? AND password = ?";
 
+    /**
+     * Логгер
+     */
     private static final Logger LOG = LoggerFactory.getLogger(PostgresUserRepositiry.class.getName());
 
-    private final BasicDataSource pool;
+    /**
+     * Объект используются для получения пула соединений с БД
+     */
+    private final DataSource pool;
 
-    public PostgresUserRepositiry(BasicDataSource pool) {
+    /**
+     * Конструктор объекта хранилище пользователей
+     * @param pool - пул соединений с DB
+     */
+    public PostgresUserRepositiry(DataSource pool) {
         this.pool = pool;
     }
 
+    /**
+     * Метод создает объект из результата запроса к БД
+     * @param resultset - объект обеспечивает доступ к результату запроса к БД
+     * @return - объект пользователя
+     * @throws SQLException - при ошибке во время взаимодействия с БД
+     */
     private User userOf(ResultSet resultset) throws SQLException {
         return new User(resultset.getInt("id"),
                 resultset.getString("username"),
@@ -35,6 +60,11 @@ public class PostgresUserRepositiry implements UserRepository {
                 resultset.getString("phone"));
     }
 
+    /**
+     * Метод сохранения пользователя в DB
+     * @param user - сохраняемый пользователь
+     * @return Optional.of(user) при успешном сохранении, иначе Optional.empty()
+     */
     public Optional<User> add(User user) {
         Optional<User> rsl = Optional.empty();
         try (Connection cn = pool.getConnection();
@@ -56,6 +86,12 @@ public class PostgresUserRepositiry implements UserRepository {
         return rsl;
     }
 
+    /**
+     * Метод поиска пользователя в DB по электронной почте и паролю
+     * @param email - электронная почта пользователя
+     * @param password - пароль пользователя
+     * @return Optional.of(user) при успешном поиске, иначе Optional.empty()
+     */
     public Optional<User> findUserByEmailAndPassword(String email, String password) {
         Optional<User> rsl = Optional.empty();
         try (Connection cn = pool.getConnection();

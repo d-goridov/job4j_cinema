@@ -13,14 +13,32 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Реализация хранилища сеансов на основе DB Postgres
+ */
 @Repository
 public class PostgresSessionRepository implements SessionRepository {
+    /**
+     * Строка - SQL запрос к БД, для получения всех сеансов
+     */
     private static final String GET_ALL = "SELECT * FROM sessions";
+    /**
+     * Строка - SQL запрос к БД, для поиска сеанса по идентификатору
+     */
     private static final String GET_BY_ID = "SELECT * FROM sessions WHERE id = ?";
+    /**
+     * Логгер
+     */
     private static final Logger LOG = LoggerFactory.getLogger(PostgresSessionRepository.class.getName());
+    /**
+     * Объект используются для получения пула соединений с БД
+     */
     private final DataSource pool;
 
-
+    /**
+     * Конструктор объекта хранилище сеансов
+     * @param pool - пул соединений с DB
+     */
     public PostgresSessionRepository(DataSource pool) {
         this.pool = pool;
     }
@@ -29,6 +47,10 @@ public class PostgresSessionRepository implements SessionRepository {
         return new Session(rs.getInt("id"), rs.getString("name"));
     }
 
+    /**
+     * Метод поиска всех сеансов в DB
+     * @return - список сеансов
+     */
     @Override
     public List<Session> findAll() {
         List<Session> sessions = new ArrayList<>();
@@ -46,6 +68,11 @@ public class PostgresSessionRepository implements SessionRepository {
         return sessions;
     }
 
+    /**
+     * Метод поиска сеанса в DB по идентификатору
+     * @param id - идентификатор сеанса
+     * @return - сеанс, если поиск успешный, иначе - null
+     */
     @Override
     public Session findById(int id) {
         try (Connection cn = pool.getConnection();
