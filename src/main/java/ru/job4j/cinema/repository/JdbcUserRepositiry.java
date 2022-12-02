@@ -16,7 +16,7 @@ import java.util.Optional;
  * Реализация хранилища пользователей на основе DB Postgres
  */
 @Repository
-public class PostgresUserRepositiry implements UserRepository {
+public class JdbcUserRepositiry implements UserRepository {
     /**
      * Строка - SQL запрос к БД, для добавления пользователя в таблицу
      */
@@ -31,19 +31,19 @@ public class PostgresUserRepositiry implements UserRepository {
     /**
      * Логгер
      */
-    private static final Logger LOG = LoggerFactory.getLogger(PostgresUserRepositiry.class.getName());
+    private static final Logger LOG = LoggerFactory.getLogger(JdbcUserRepositiry.class.getName());
 
     /**
-     * Объект используются для получения пула соединений с БД
+     * Объект используются для получения соединения с БД
      */
-    private final DataSource pool;
+    private final DataSource dataSource;
 
     /**
      * Конструктор объекта хранилище пользователей
-     * @param pool - пул соединений с DB
+     * @param dataSource - объект для получения соединения с БД
      */
-    public PostgresUserRepositiry(DataSource pool) {
-        this.pool = pool;
+    public JdbcUserRepositiry(DataSource dataSource) {
+        this.dataSource = dataSource;
     }
 
     /**
@@ -67,7 +67,7 @@ public class PostgresUserRepositiry implements UserRepository {
      */
     public Optional<User> add(User user) {
         Optional<User> rsl = Optional.empty();
-        try (Connection cn = pool.getConnection();
+        try (Connection cn = dataSource.getConnection();
              PreparedStatement ps = cn.prepareStatement(INSERT, PreparedStatement.RETURN_GENERATED_KEYS)) {
             ps.setString(1, user.getName());
             ps.setString(2, user.getPassword());
@@ -94,7 +94,7 @@ public class PostgresUserRepositiry implements UserRepository {
      */
     public Optional<User> findUserByEmailAndPassword(String email, String password) {
         Optional<User> rsl = Optional.empty();
-        try (Connection cn = pool.getConnection();
+        try (Connection cn = dataSource.getConnection();
              PreparedStatement ps =  cn.prepareStatement(GET_BY_EMAIL_PASSWORD)
         ) {
             ps.setString(1, email);

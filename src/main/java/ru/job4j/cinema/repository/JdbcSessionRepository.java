@@ -17,7 +17,7 @@ import java.util.List;
  * Реализация хранилища сеансов на основе DB Postgres
  */
 @Repository
-public class PostgresSessionRepository implements SessionRepository {
+public class JdbcSessionRepository implements SessionRepository {
     /**
      * Строка - SQL запрос к БД, для получения всех сеансов
      */
@@ -29,18 +29,18 @@ public class PostgresSessionRepository implements SessionRepository {
     /**
      * Логгер
      */
-    private static final Logger LOG = LoggerFactory.getLogger(PostgresSessionRepository.class.getName());
+    private static final Logger LOG = LoggerFactory.getLogger(JdbcSessionRepository.class.getName());
     /**
-     * Объект используются для получения пула соединений с БД
+     * Объект используются для получения соединения с БД
      */
-    private final DataSource pool;
+    private final DataSource dataSource;
 
     /**
      * Конструктор объекта хранилище сеансов
-     * @param pool - пул соединений с DB
+     * @param dataSource - объект для получения соединения с БД
      */
-    public PostgresSessionRepository(DataSource pool) {
-        this.pool = pool;
+    public JdbcSessionRepository(DataSource dataSource) {
+        this.dataSource = dataSource;
     }
 
     private Session createSession(ResultSet rs) throws SQLException {
@@ -54,7 +54,7 @@ public class PostgresSessionRepository implements SessionRepository {
     @Override
     public List<Session> findAll() {
         List<Session> sessions = new ArrayList<>();
-        try (Connection cn = pool.getConnection();
+        try (Connection cn = dataSource.getConnection();
              PreparedStatement ps = cn.prepareStatement(GET_ALL)
         ) {
             try (ResultSet it = ps.executeQuery()) {
@@ -75,7 +75,7 @@ public class PostgresSessionRepository implements SessionRepository {
      */
     @Override
     public Session findById(int id) {
-        try (Connection cn = pool.getConnection();
+        try (Connection cn = dataSource.getConnection();
              PreparedStatement ps =  cn.prepareStatement(GET_BY_ID)
         ) {
             ps.setInt(1, id);

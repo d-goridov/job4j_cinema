@@ -1,6 +1,5 @@
 package ru.job4j.cinema.repository;
 
-import org.apache.commons.dbcp2.BasicDataSource;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Repository;
@@ -16,7 +15,7 @@ import java.util.Optional;
  * Реализация хранилища билетов на основе DB Postgres
  */
 @Repository
-public class PostgresTicketRepository implements TicketRepository {
+public class JdbcTicketRepository implements TicketRepository {
 
     /**
      * Строка - SQL запрос к БД, для добавления билета в таблицу
@@ -27,19 +26,19 @@ public class PostgresTicketRepository implements TicketRepository {
     /**
      * Логгер
      */
-    private static final Logger LOG = LoggerFactory.getLogger(PostgresTicketRepository.class.getName());
+    private static final Logger LOG = LoggerFactory.getLogger(JdbcTicketRepository.class.getName());
 
     /**
-     * Объект используются для получения пула соединений с БД
+     * Объект используются для получения соединения с БД
      */
-    private final DataSource pool;
+    private final DataSource dataSource;
 
     /**
      * Конструктор объекта хранилище билетов
-     * @param pool - пул соединений с DB
+     * @param dataSource - объект для получения соединения с БД
      */
-    public PostgresTicketRepository(DataSource pool) {
-        this.pool = pool;
+    public JdbcTicketRepository(DataSource dataSource) {
+        this.dataSource = dataSource;
     }
 
     /**
@@ -49,7 +48,7 @@ public class PostgresTicketRepository implements TicketRepository {
      */
     public Optional<Ticket> add(Ticket ticket) {
         Optional<Ticket> rsl = Optional.empty();
-        try (Connection cn = pool.getConnection();
+        try (Connection cn = dataSource.getConnection();
              PreparedStatement ps = cn.prepareStatement(INSERT, PreparedStatement.RETURN_GENERATED_KEYS)) {
             ps.setInt(1, ticket.getSession().getId());
             ps.setInt(2, ticket.getRow());

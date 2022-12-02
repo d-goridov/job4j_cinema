@@ -13,7 +13,7 @@ import java.util.Properties;
 
 import static org.assertj.core.api.Assertions.*;
 
-class PostgresUserRepositiryTest {
+class JdbcUserRepositiryTest {
 
     private Properties loadProperties() {
         Properties cfg = new Properties();
@@ -50,7 +50,7 @@ class PostgresUserRepositiryTest {
 
     @Test
     public void whenAddUser() {
-        UserRepository repository = new PostgresUserRepositiry(this.createPool());
+        UserRepository repository = new JdbcUserRepositiry(this.createPool());
         User user = new User(1, "Tom", "password", "tom123@gmail.com", "222-33-44");
         Optional<User> userDB = repository.add(user);
         assertThat(userDB.isPresent()).isTrue();
@@ -60,7 +60,7 @@ class PostgresUserRepositiryTest {
 
     @Test
     public void whenFindByEmailAndPassword() {
-        UserRepository repository = new PostgresUserRepositiry(this.createPool());
+        UserRepository repository = new JdbcUserRepositiry(this.createPool());
         User user = new User(2, "Oleg", "password", "oleg123@gmail.com", "222-55-44");
         Optional<User> userDB = repository.add(user);
         assertThat(userDB.isPresent()).isTrue();
@@ -75,7 +75,7 @@ class PostgresUserRepositiryTest {
     public void whenNotAddSameUser() {
         User user = new User(3, "Elena", "password", "elena@gmail.com", "22-33-44");
         User user2 = new User(4, "Elena", "password1", "elena@gmail.com", "333-555");
-        UserRepository repository = new PostgresUserRepositiry(this.createPool());
+        UserRepository repository = new JdbcUserRepositiry(this.createPool());
         repository.add(user);
         Optional<User> userInDB = repository.add(user2);
         Assertions.assertTrue(userInDB.isEmpty());

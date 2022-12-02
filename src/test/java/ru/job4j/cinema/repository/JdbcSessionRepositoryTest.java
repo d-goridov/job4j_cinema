@@ -12,7 +12,7 @@ import java.util.Properties;
 
 import static org.assertj.core.api.Assertions.*;
 
-class PostgresSessionRepositoryTest {
+class JdbcSessionRepositoryTest {
 
     private Properties loadProperties() {
         Properties cfg = new Properties();
@@ -50,7 +50,7 @@ class PostgresSessionRepositoryTest {
 
     @Test
     public void whenfindAllSessions() {
-        SessionRepository repository = new PostgresSessionRepository(this.createPool());
+        SessionRepository repository = new JdbcSessionRepository(this.createPool());
         List<Session> sessions = repository.findAll();
         assertThat(sessions.size()).isEqualTo(8);
 
@@ -58,7 +58,7 @@ class PostgresSessionRepositoryTest {
 
     @Test
     public void whenFindSessionById() {
-        SessionRepository repository = new PostgresSessionRepository(this.createPool());
+        SessionRepository repository = new JdbcSessionRepository(this.createPool());
         Session session = repository.findById(3);
         assertThat(session.getName()).isEqualTo("galapagoses");
     }
