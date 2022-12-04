@@ -22,4 +22,12 @@ public interface SessionService {
      * @return - найденный сеанс
      */
     Session findById(int id);
+
+    /**
+     * Метод для получения массива байт из
+     * файла изображения
+     * @param sessionId - идентификатор сеанса
+     * @return - массив байт
+     */
+    byte[] getSessionPhoto(int sessionId);
 }

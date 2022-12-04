@@ -56,15 +56,7 @@ public class SessionController {
      */
     @GetMapping("/photoSession/{sessionId}")
     public ResponseEntity<Resource> download(@PathVariable("sessionId") Integer sessionId) {
-        Resource resource = new ClassPathResource(
-                "/image/" + service.findById(sessionId).getName() + ".jpeg"
-        );
-        byte[] photo = new byte[1028];
-        try (InputStream input = resource.getInputStream()) {
-            photo = input.readAllBytes();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        byte[] photo = service.getSessionPhoto(sessionId);
         return ResponseEntity.ok()
                 .headers(new HttpHeaders())
                 .contentLength(photo.length)
