@@ -60,7 +60,7 @@ public class SessionController {
         return ResponseEntity.ok()
                 .headers(new HttpHeaders())
                 .contentLength(photo.length)
-                .contentType(MediaType.parseMediaType("application/octet-stream"))
+                .contentType(MediaType.APPLICATION_OCTET_STREAM)
                 .body(new ByteArrayResource(photo));
     }
 
